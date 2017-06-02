@@ -16,6 +16,9 @@ public class TaobaoCrawler {
         String data = "卡米母婴\nhttps://babycook.taobao.com/category.htm?spm=a1z10.3-c-s.w5001-14457103492.5.YeeQ78&search=y&scene=taobao_shop\n\n";
         int productCount = 0;
 
+        WriteFile wf = new WriteFile("document/data.txt", data);
+        wf.run();
+
         // 24 items per page, 24 * 14 = 336 products
         for (int i = 1; i < 15; i++) {
             try {
@@ -72,7 +75,7 @@ public class TaobaoCrawler {
                     // print product information
 //                    System.out.println(product.toString());
                     productCount ++;
-                    data += "\n商品" + productCount +
+                    data = "\n商品" + productCount +
                             "\n名称： " + product.getTitle() +
                             "\n商品图片： " + product.getImage() +
                             "\nID： " + product.getId() +
@@ -81,19 +84,19 @@ public class TaobaoCrawler {
                             "\n已售出： " + product.getSaleNumber() +
                             "\n";
 
+                    // Write data to file
+                    wf.setData(data);
+                    wf.run();
+
                     // fetch images
                     FetchImage fi = new FetchImage("document/images/image" + productCount + ".jpg", product.getImage());
                     fi.run();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-            } finally {
             }
-
         }
 
-        WriteFile file1 = new WriteFile("document/data.txt", data);
-        file1.run();
     }
 
 }
