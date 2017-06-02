@@ -73,8 +73,7 @@ public class TaobaoCrawler {
                     product.setImage(imageUrl);
 
                     // print product information
-//                    System.out.println(product.toString());
-                    productCount ++;
+                    productCount++;
                     data = "\n商品" + productCount +
                             "\n名称： " + product.getTitle() +
                             "\n商品图片： " + product.getImage() +
